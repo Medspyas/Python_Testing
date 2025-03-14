@@ -1,33 +1,35 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
-from server import app, loadClubs
+from server import app
+import pytest 
 
 
 
 
-clubs = loadClubs()
+@pytest.fixture
+def client():
+    app.config['TESTING'] = True
+    with app.test_client() as client:
+        yield client
 
-email = clubs[0]["email"]
 
 
-def showSummary_test(email, clubs):
-    club = [club for club in clubs if club['email'] == email][0]
-    return f"Welcome, {club['email']}"
 
-def test_email_valid():    
-    response = showSummary_test(email, clubs)
-    assert response == f"Welcome, {email}"
+def test_email_valid(client):    
+    response = client.post('/showSummary', data={'email' : 'john@simplylift.co'})
+    assert response.status_code == 200
+    assert b'Welcome' in response.data 
 
-def test_email_invalid():
-    email = 'test@mail.com'
-    response = showSummary_test(email, clubs)
-    assert response == "enter email valid"
+def test_email_invalid(client):    
+    response = client.post('/showSummary', data={'email' : 'test@mail.com'})
+    assert response.status_code == 200
+    assert b"Sorry, that email was not found." in response.data
 
-def test_email_empty():
-    email = ''
-    response = showSummary_test(email, clubs)
-    assert response == "No email enter"   
+def test_email_empty(client):    
+    response = client.post('/showSummary', data={'email' : ''})
+    assert response.status_code == 200
+    assert b"Please enter an email." in response.data
 
 
 

@@ -2,6 +2,7 @@ import json
 from flask import Flask,render_template,request,redirect,flash,url_for
 
 
+
 def loadClubs():
     with open('clubs.json') as c:
          listOfClubs = json.load(c)['clubs']
@@ -54,7 +55,7 @@ def purchasePlaces():
     club = [c for c in clubs if c['name'] == request.form['club']][0]
     placesRequired = int(request.form['places'])
     competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
-    flash('Great-booking complete!')
+    flash('Great-booking complete!')    
     return render_template('welcome.html', club=club, competitions=competitions)
 
 
