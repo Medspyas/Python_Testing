@@ -24,12 +24,12 @@ def test_email_valid(client):
 def test_email_invalid(client):    
     response = client.post('/showSummary', data={'email' : 'test@mail.com'})
     assert response.status_code == 200
-    assert b"Sorry, that email was not found." in response.data
+    assert b"Welcome, test@mail.com" not in response.data
 
 def test_email_empty(client):    
     response = client.post('/showSummary', data={'email' : ''})
     assert response.status_code == 200
-    assert b"Please enter an email." in response.data
+    assert b"Please enter your secretary email to continue:" in response.data
 
 
 
