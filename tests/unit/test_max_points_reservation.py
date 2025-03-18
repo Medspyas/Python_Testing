@@ -17,8 +17,10 @@ def client():
 def test_purchase_places_max_12(client):
     response = client.post('/purchasePlaces', data={
         "competition" : "Spring Festival",
-        "club" : "Iron Temple",
+        "club" : "Simply Lift",
         "places": "13"
     })
+
+   
     assert response.status_code == 200
-    assert b"Great-booking complete!"  not in response.data
+    assert b"Great-booking complete!" not in response.data

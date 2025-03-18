@@ -65,7 +65,7 @@ def purchasePlaces():
     
     if placesRequired > 12:
         flash("Cannot book more than 12 places per reservation")    
-        return render_template('welcome.html', club=club, competitions=competitions) 
+        return render_template('welcome.html', club=club, competitions=competitions)
     
     if placesRequired > int(competition["numberOfPlaces"]):
         flash("Not enough places available")
