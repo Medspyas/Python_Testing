@@ -22,6 +22,10 @@ app.secret_key = 'something_special'
 competitions = loadCompetitions()
 clubs = loadClubs()
 
+def saveClubs(clubs):
+    with open('clubs.json', 'w') as f:
+        json.dump({"clubs": clubs}, f, indent=4)
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -82,6 +86,8 @@ def purchasePlaces():
         return render_template('welcome.html', club=club, competitions=competitions) 
  
     competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
+    club['points'] = str(int(club['points']) - placesRequired)
+    saveClubs(clubs)
     flash('Great-booking complete!')
     return render_template('welcome.html', club=club, competitions=competitions)
 
