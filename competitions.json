@@ -8,7 +8,12 @@
         {
             "name": "Fall Classic",
             "date": "2025-10-22 13:30:00",
-            "numberOfPlaces": "13"
+            "numberOfPlaces": "10"
+        },
+        {
+            "name": "Winter Cup",
+            "date": "2025-10-26 15:00:00",
+            "numberOfPlaces": "8"
         }
     ]
 }

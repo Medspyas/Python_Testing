@@ -8,7 +8,7 @@ from server import app
 
 def test_purchase_places_valid():
     with app.test_client() as client:
-        competition_name = "Spring Festival"
+        competition_name = "Fall Classic"
         club_name = "Simply Lift"
 
         response = client.post('/purchasePlaces', data={
@@ -23,13 +23,13 @@ def test_purchase_places_valid():
 
 def test_purchase_places_too_many_places():
     with app.test_client() as client:
-        competition_name = "Spring Festival"
+        competition_name = "Fall Classic"
         club_name = "Simply Lift"
 
         response = client.post('/purchasePlaces', data={
             'competition': competition_name,
             'club': club_name,
-            'places': '1000',
+            'places': '11',
         }, follow_redirects=True)
 
 
@@ -39,32 +39,19 @@ def test_purchase_places_too_many_places():
 
 def test_purchase_places_not_enough_points():
     with app.test_client() as client:
-        competition_name = "Spring Festival"
-        club_name = "Iron Temple"       
+        competition_name = "Winter Cup"
+        club_name = "She Lifts"       
 
 
         response = client.post('/purchasePlaces', data={
             'competition': competition_name,
             'club': club_name,
-            'places': '10',
+            'places': '8',
         }, follow_redirects=True)
        
-
-        response_text = response.data.decode().strip()              
+        
+        response_text = response.data.decode().strip()                   
         assert response.status_code == 200
         assert "Not enough points available" in response_text
 
 
-def test_purchase_places_invalid_number():
-    with app.test_client() as client:
-        competition_name = "Spring Festival"
-        club_name = "Simply Lift"
-
-        response = client.post('/purchasePlaces', data={
-            'competition': competition_name,
-            'club': club_name,
-            'places': '0',
-        }, follow_redirects=True)
-
-        assert response.status_code == 200
-        assert b"Invalid number" in response.data

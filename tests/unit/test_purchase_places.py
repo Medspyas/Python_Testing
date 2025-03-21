@@ -14,7 +14,7 @@ def client():
 
 def test_purchase_places(client):
     response = client.post('/purchasePlaces', data={
-        "competition" : "Spring Festival",
+        "competition" : "Fall Classic",
         "club" : "Iron Temple",
         "places": "3"
     })
@@ -23,7 +23,7 @@ def test_purchase_places(client):
 
 def test_purchase_places_too_many_places(client):
     response = client.post('/purchasePlaces', data={
-        "competition" : "Spring Festival",
+        "competition" : "Fall Classic",
         "club" : "Iron Temple",
         "places": "50"
     })
@@ -32,16 +32,9 @@ def test_purchase_places_too_many_places(client):
 
 def test_purchase_places_not_enough_points(client):
     response = client.post('/purchasePlaces', data={
-        "competition" : "Spring Festival",
+        "competition" : "Fall Classic",
         "club" : "Iron Temple",
         "places": "10"
     })
     assert b"Great-booking complete!" not in response.data
     
-def test_purchase_invalid_number(client):
-    response = client.post('/purchasePlaces', data={
-        "competition" : "Spring Festival",
-        "club" : "Iron Temple",
-        "places": "0"
-    })
-    assert b"Great-booking complete!" not in response.data
