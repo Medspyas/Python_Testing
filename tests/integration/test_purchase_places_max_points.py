@@ -8,7 +8,7 @@ from server import app
 
 def test_purchase_places_max_12():
     with app.test_client() as client:
-        competition_name = "Spring Festival"
+        competition_name = "Fall Classic"
         club_name = "Simply Lift"
 
         response = client.post('/purchasePlaces', data={
