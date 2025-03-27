@@ -29,7 +29,7 @@ def test_email_invalid(client):
 def test_email_empty(client):    
     response = client.post('/showSummary', data={'email' : ''})
     assert response.status_code == 200
-    assert b"Please enter your secretary email to continue:" in response.data
+    assert b"Please enter an email" in response.data
 
 
 
