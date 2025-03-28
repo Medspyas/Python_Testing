@@ -8,12 +8,17 @@
         {
             "name": "Fall Classic",
             "date": "2025-10-22 13:30:00",
-            "numberOfPlaces": "10"
+            "numberOfPlaces": "13"
         },
         {
             "name": "Winter Cup",
             "date": "2025-10-26 15:00:00",
             "numberOfPlaces": "8"
+        },
+        {
+            "name": "Summer Tournament",
+            "date": "2025-08-15 11:30:00",
+            "numberOfPlaces": "25"
         }
     ]
 }

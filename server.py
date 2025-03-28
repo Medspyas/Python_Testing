@@ -28,6 +28,10 @@ def saveClubs(clubs):
     with open('clubs.json', 'w') as f:
         json.dump({"clubs": clubs}, f, indent=4)
 
+def saveCompetitions(competitions):
+    with open('competitions.json', 'w') as f:
+        json.dump({"competitions": competitions}, f, indent=4)
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -77,8 +81,8 @@ def purchasePlaces():
         return return_message("You cannot book a place for a past competition")  
     
     if placesRequired > 12: 
-        return return_message("Cannot book more than 12 places per reservation") 
-    
+        return return_message("Cannot book more than 12 places per reservation")     
+
     if placesRequired > competition_places:      
         return return_message("Not enough places available") 
     
@@ -90,6 +94,7 @@ def purchasePlaces():
     competition['numberOfPlaces'] = str(competition_places - placesRequired)
     club['points'] = str(club_points - placesRequired)
     saveClubs(clubs)
+    saveCompetitions(competitions)
     flash('Great-booking complete!')
     return render_template('welcome.html', club=club, competitions=competitions)
 
