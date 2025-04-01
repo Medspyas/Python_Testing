@@ -1,4 +1,4 @@
-
+from datetime import datetime
 
 
 def find_club_email(clubs, email):
@@ -15,4 +15,9 @@ def purchase_places_validity(club_points, competitions_places, places_required):
 
 def validate_max_places_reservation(places_required, max_points=12):
     return places_required <= max_points
+
+
+def is_competition_not_in_past(date_string, format="%Y-%m-%d %H:%M:%S"):
+    competition_date = datetime.strptime(date_string, format)
+    return competition_date > datetime.now()
 
