@@ -26,3 +26,9 @@ def deduct_points(club_points, places_resreved):
 
 def deduct_competitions_places(competition_places, place_reserved):
     return competition_places - place_reserved
+
+def find_club_by_name(clubs, name):
+    return next((c for c in clubs if c['name'] == name), None)
+
+def find_club_by_compeition(compeitions, name):
+    return next((c for c in compeitions if c['name'] == name), None)
