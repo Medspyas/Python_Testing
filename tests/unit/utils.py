@@ -13,3 +13,6 @@ def purchase_places_validity(club_points, competitions_places, places_required):
         return "not enough points"
     return "ok"
 
+def validate_max_places_reservation(places_required, max_points=12):
+    return places_required <= max_points
+
