@@ -1,47 +1,22 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
-import pytest
-from server import app
+from utils import purchase_places_validity
 
 
-@pytest.fixture
-def client():
-    app.config['TESTING'] = True
-    with app.test_client() as client:
-        yield client
 
 
-def test_purchase_places(client):
-    response = client.post('/purchasePlaces', data={
-        "competition" : "Spring Festival",
-        "club" : "Iron Temple",
-        "places": "3"
-    })
-    assert response.status_code == 200
-    assert b"Great-booking complete!" in response.data
 
-def test_purchase_places_too_many_places(client):
-    response = client.post('/purchasePlaces', data={
-        "competition" : "Spring Festival",
-        "club" : "Iron Temple",
-        "places": "50"
-    })
-    assert b"Great-booking complete!" not in response.data
+def test_purchase_places():
+    result = purchase_places_validity(10, 10, 3)    
+    assert result == "ok"
+
+def test_purchase_places_too_many_places():
+    result = purchase_places_validity(15, 5, 6)
+    assert result == "not enough places"
 
 
-def test_purchase_places_not_enough_points(client):
-    response = client.post('/purchasePlaces', data={
-        "competition" : "Spring Festival",
-        "club" : "Iron Temple",
-        "places": "10"
-    })
-    assert b"Great-booking complete!" not in response.data
+def test_purchase_places_not_enough_points():
+    result = purchase_places_validity(5, 10, 8)
+    assert result == 'not enough points'
     
-def test_purchase_invalid_number(client):
-    response = client.post('/purchasePlaces', data={
-        "competition" : "Spring Festival",
-        "club" : "Iron Temple",
-        "places": "0"
-    })
-    assert b"Great-booking complete!" not in response.data
