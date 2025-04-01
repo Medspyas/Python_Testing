@@ -23,3 +23,6 @@ def is_competition_not_in_past(date_string, format="%Y-%m-%d %H:%M:%S"):
 
 def deduct_points(club_points, places_resreved):
     return club_points - places_resreved
+
+def deduct_competitions_places(competition_places, place_reserved):
+    return competition_places - place_reserved
