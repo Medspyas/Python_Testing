@@ -21,3 +21,5 @@ def is_competition_not_in_past(date_string, format="%Y-%m-%d %H:%M:%S"):
     competition_date = datetime.strptime(date_string, format)
     return competition_date > datetime.now()
 
+def deduct_points(club_points, places_resreved):
+    return club_points - places_resreved
