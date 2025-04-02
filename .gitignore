@@ -8,4 +8,4 @@ venv
 .coverage
 rapport_couverture_tests.png
 test_performance.png
-
+.flake8

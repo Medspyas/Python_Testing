@@ -1,17 +1,15 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
+
 from utils import purchase_places_validity
 
-
-
-
-
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
 
 def test_purchase_places():
-    result = purchase_places_validity(10, 10, 3)    
+    result = purchase_places_validity(10, 10, 3)
     assert result == "ok"
+
 
 def test_purchase_places_too_many_places():
     result = purchase_places_validity(15, 5, 6)
@@ -20,5 +18,4 @@ def test_purchase_places_too_many_places():
 
 def test_purchase_places_not_enough_points():
     result = purchase_places_validity(5, 10, 8)
-    assert result == 'not enough points'
-
+    assert result == "not enough points"
