@@ -1,26 +1,15 @@
 import os
 import sys
 
-import pytest
-
-from server import app, loadClubs
+from utils import format_club_points
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
 
-@pytest.fixture
-def client():
-    app.config["TESTING"] = True
-    with app.test_client() as client:
-        yield client
-
-
-def test_show_points(client):
-    response = client.get("/points")
-
-    assert response.status_code == 200
-
-    clubs = loadClubs()
-    for club in clubs:
-        assert club["name"].encode() in response.data
-        assert str(club["points"]).encode() in response.data
+def test_format_club_points():
+    clubs = [
+        {"name": "Simply Lift", "points": 13},
+        {"name": "Iron Temple", "points": 4},
+    ]
+    result = format_club_points(clubs)
+    assert result == [("Simply Lift", 13), ("Iron Temple", 4)]

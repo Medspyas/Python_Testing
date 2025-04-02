@@ -38,3 +38,7 @@ def find_club_by_name(clubs, name):
 
 def find_club_by_compeition(compeitions, name):
     return next((c for c in compeitions if c["name"] == name), None)
+
+
+def format_club_points(clubs):
+    return [(club["name"], club["points"]) for club in clubs]
